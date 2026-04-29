@@ -1,0 +1,236 @@
+<section class="help-page">
+  <div class="help-container">
+    <header class="help-header">
+      <div>
+        <span class="help-badge">Manual del simulador</span>
+        <h1>Guía de uso del Simulador de Modelado de Datos</h1>
+        <p>
+          Aprende cómo completar el Nivel 1, construir la entidad LIBRO,
+          registrar atributos y validar correctamente tu modelo.
+        </p>
+      </div>
+    </header>
+
+    <section class="help-grid">
+      <article class="help-card">
+        <h2>¿Qué es este simulador?</h2>
+        <p>
+          El Simulador de Modelado de Datos es una aplicación educativa diseñada
+          para practicar la construcción de modelos de datos de forma visual.
+          En cada nivel debes crear entidades, registrar atributos y validar si
+          el modelo cumple con las reglas solicitadas.
+        </p>
+      </article>
+
+      <article class="help-card">
+        <h2>Objetivo general</h2>
+        <p>
+          El objetivo del juego es aprender paso a paso cómo se construyen
+          modelos de datos correctos, comenzando por entidades simples y
+          avanzando hacia estructuras más completas con atributos, llaves
+          primarias y relaciones.
+        </p>
+      </article>
+    </section>
+
+    <section class="help-card">
+      <h2>Objetivo del Nivel 1: Biblioteca</h2>
+      <p>
+        En el Nivel 1 debes construir la entidad <strong>LIBRO</strong>. Esta
+        entidad representa los libros que pueden registrarse en una biblioteca.
+        Para completar el nivel, debes agregar los atributos necesarios para
+        identificar el libro, registrar su título y guardar el nombre de su
+        autor.
+      </p>
+    </section>
+
+    <section class="help-card">
+      <h2>Pasos para completar el Nivel 1</h2>
+
+      <ol class="steps-list">
+        <li>Presiona el botón <strong>Crear entidad LIBRO</strong>.</li>
+        <li>Selecciona la entidad <strong>LIBRO</strong> en el lienzo de modelado.</li>
+        <li>Agrega un atributo que represente el identificador del libro.</li>
+        <li>Marca ese atributo como <strong>Llave primaria (PK)</strong>.</li>
+        <li>Agrega un atributo que represente el título del libro.</li>
+        <li>Agrega un atributo que represente el autor del libro.</li>
+        <li>Revisa la integridad del modelo.</li>
+        <li>Presiona <strong>Validar modelo</strong> para comprobar si el nivel fue completado.</li>
+      </ol>
+    </section>
+
+    <section class="help-card">
+      <h2>Atributos aceptados en el Nivel 1</h2>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th>Nombres aceptados</th>
+              <th>Tipo de dato</th>
+              <th>Requisito</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Identificador del libro</td>
+              <td>
+                <code>id</code>,
+                <code>id_libro</code>,
+                <code>codigo_libro</code>,
+                <code>clave_libro</code>
+              </td>
+              <td><code>INT</code></td>
+              <td>Debe marcarse como PK</td>
+            </tr>
+
+            <tr>
+              <td>Título del libro</td>
+              <td>
+                <code>titulo</code>,
+                <code>nombre</code>,
+                <code>nombre_libro</code>,
+                <code>titulo_libro</code>
+              </td>
+              <td><code>VARCHAR</code></td>
+              <td>Debe tener longitud</td>
+            </tr>
+
+            <tr>
+              <td>Autor del libro</td>
+              <td>
+                <code>autor</code>,
+                <code>escritor</code>,
+                <code>nombre_autor</code>,
+                <code>autor_libro</code>
+              </td>
+              <td><code>VARCHAR</code></td>
+              <td>Debe tener longitud</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="help-card">
+      <h2>Conceptos básicos</h2>
+
+      <div class="concepts-grid">
+        <div class="concept-item">
+          <h3>Entidad</h3>
+          <p>
+            Una entidad representa un objeto o elemento importante del sistema.
+            En este nivel, la entidad principal es <strong>LIBRO</strong>.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h3>Atributo</h3>
+          <p>
+            Un atributo es una característica de una entidad. Por ejemplo, un
+            libro puede tener identificador, título y autor.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h3>Llave primaria / PK</h3>
+          <p>
+            PK significa <strong>Primary Key</strong> o llave primaria. Es el
+            atributo que identifica de forma única cada registro.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h3>INT</h3>
+          <p>
+            INT es un tipo de dato usado para guardar números enteros.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h3>VARCHAR</h3>
+          <p>
+            VARCHAR es un tipo de dato usado para guardar texto. Cuando uses
+            VARCHAR, debes indicar una longitud válida, como 120 o 150.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h3>Longitud</h3>
+          <p>
+            La longitud indica cuántos caracteres como máximo puede guardar un
+            atributo de tipo VARCHAR.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="help-grid">
+      <article class="help-card">
+        <h2>Errores comunes</h2>
+
+        <ul class="warning-list">
+          <li>Crear la entidad pero no seleccionarla antes de agregar atributos.</li>
+          <li>Olvidar marcar el identificador como PK.</li>
+          <li>Usar VARCHAR sin indicar longitud.</li>
+          <li>Agregar nombres que no representan los conceptos esperados.</li>
+          <li>Agregar atributos repetidos.</li>
+          <li>Validar el modelo antes de completar los atributos requeridos.</li>
+        </ul>
+      </article>
+
+      <article class="help-card">
+        <h2>¿Cómo corregir errores?</h2>
+
+        <p>
+          Si agregas un atributo incorrecto, puedes usar el botón
+          <strong>Eliminar</strong>. Si quieres comenzar desde cero, puedes
+          presionar <strong>Reiniciar nivel</strong>. Después de corregir el
+          modelo, vuelve a presionar <strong>Validar modelo</strong>.
+        </p>
+      </article>
+    </section>
+
+    <section class="help-grid">
+      <article class="help-card">
+        <h2>Integridad del modelo</h2>
+        <p>
+          La integridad del modelo indica el avance de construcción del nivel.
+          Mientras más elementos correctos agregues, mayor será el porcentaje.
+          Para completar el nivel, el modelo debe llegar al <strong>100%</strong>.
+        </p>
+      </article>
+
+      <article class="help-card">
+        <h2>Sonidos del simulador</h2>
+        <p>
+          El simulador utiliza sonidos para mejorar la experiencia. La pantalla
+          de narrativa tiene música de inicio, el área de modelado tiene sonido
+          de acción en bucle, los errores tienen un sonido de advertencia y el
+          modelo correcto reproduce un sonido de logro.
+        </p>
+      </article>
+    </section>
+
+    <section class="final-tip">
+      <h2>Consejo final</h2>
+      <p>
+        Antes de validar, revisa que la entidad <strong>LIBRO</strong> exista,
+        que tenga un identificador marcado como PK, y que los atributos de
+        título y autor sean de tipo VARCHAR con longitud válida.
+      </p>
+    </section>
+
+    <div class="help-actions">
+      <button type="button" class="secondary-btn" (click)="goBack()">
+        Volver a narrativa
+      </button>
+
+      <button type="button" class="primary-btn" (click)="goToModeling()">
+        Ir al modelado
+      </button>
+    </div>
+  </div>
+</section>

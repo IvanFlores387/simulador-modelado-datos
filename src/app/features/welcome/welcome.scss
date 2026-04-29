@@ -1,0 +1,103 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.welcome-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, #eef4ff 0%, #f8fbff 55%, #ffffff 100%);
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border: 1px solid #dbe7ff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 16px 50px rgba(18, 52, 86, 0.08);
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  color: #214a9a;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 44px;
+  line-height: 1.1;
+  color: #162033;
+}
+
+p {
+  margin: 0 0 28px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #4e5b70;
+  max-width: 620px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: #2457d6;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(36, 87, 214, 0.22);
+}
+
+.secondary-btn {
+  background: #eef3ff;
+  color: #24438a;
+}
+
+@media (max-width: 640px) {
+  .welcome-card {
+    padding: 28px;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}

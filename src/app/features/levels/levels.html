@@ -1,0 +1,40 @@
+<section class="levels-page">
+  <div class="levels-header">
+    <div>
+      <div class="badge">Selección de nivel</div>
+      <h1>Elige tu reto de modelado</h1>
+      <p>
+        Cada nivel aumenta poco a poco la dificultad. Puedes regresar aquí sin afectar la estructura general de la aplicación.
+      </p>
+    </div>
+
+    <button type="button" class="secondary-btn" (click)="goBack()">
+      Volver al inicio
+    </button>
+  </div>
+
+  <div class="levels-grid">
+    @for (level of levels; track level.id) {
+      <article class="level-card">
+        <span class="level-number">Nivel {{ level.id }}</span>
+        <h2>{{ level.title }}</h2>
+        <h3>{{ level.subtitle }}</h3>
+        <p>{{ level.objective }}</p>
+
+        <div class="level-meta">
+          <span>{{ level.expectedEntities.length }} entidad(es)</span>
+
+          @if (level.expectedRelations?.length) {
+            <span>{{ level.expectedRelations?.length }} relación(es)</span>
+          } @else {
+            <span>Sin relaciones obligatorias</span>
+          }
+        </div>
+
+        <button type="button" class="primary-btn" (click)="startLevel(level)">
+          Iniciar nivel
+        </button>
+      </article>
+    }
+  </div>
+</section>

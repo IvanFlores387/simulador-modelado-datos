@@ -1,0 +1,346 @@
+<section class="modeling-page">
+  <header class="topbar">
+    <div>
+      <div class="level-label">{{ levelConfigService.currentLevel().title }}</div>
+      <h1>Área de modelado</h1>
+    </div>
+
+    <div class="topbar-actions">
+      <button type="button" class="secondary-btn" (click)="goBack()">Volver</button>
+      <button type="button" class="secondary-btn" (click)="goToHelp()">Ayuda</button>
+      <button type="button" class="danger-btn" (click)="resetLevel()">Reiniciar nivel</button>
+      <button
+        type="button"
+        class="primary-btn"
+        [disabled]="simulatorStateService.nodes().length === 0"
+        (click)="validateModel()"
+      >
+        Validar modelo
+      </button>
+    </div>
+  </header>
+
+  <section class="integrity-panel">
+    <div class="integrity-header">
+      <span>Integridad del modelo</span>
+      <strong>{{ simulatorStateService.integrity() }}%</strong>
+    </div>
+
+    <div class="integrity-bar">
+      <div class="integrity-fill" [style.width.%]="simulatorStateService.integrity()"></div>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <aside class="left-panel">
+      <h2>Herramientas</h2>
+
+      <button type="button" class="full-btn" (click)="createMainEntity()">
+        Crear entidad {{ levelConfigService.currentLevel().expectedEntityName }}
+      </button>
+
+      <div class="entity-tools">
+        <strong>Entidades del nivel</strong>
+
+        @for (entity of levelConfigService.currentLevel().expectedEntities; track entity.name) {
+          <button type="button" class="mini-entity-btn" (click)="createExpectedEntity(entity.name)">
+            + {{ entity.name }}
+          </button>
+        }
+      </div>
+
+      <form class="custom-entity-form" (submit)="$event.preventDefault(); createCustomEntity()">
+        <label class="field">
+          <span>Entidad personalizada</span>
+          <input
+            type="text"
+            [ngModel]="customEntityName()"
+            (ngModelChange)="onCustomEntityNameChange($event)"
+            name="customEntityName"
+            placeholder="Ej. LIBRO"
+          />
+        </label>
+
+        <button type="submit" class="save-btn">Crear entidad</button>
+      </form>
+
+      <div class="hint-box">
+        <strong>Objetivo</strong>
+        <p>{{ levelConfigService.currentLevel().objective }}</p>
+      </div>
+
+      <div class="avatar-helper-card">
+        <img src="/assets/avatars/avatar_accion.png" alt="Avatar guía del modelado" />
+        <p>Estoy aquí para ayudarte a construir correctamente tus entidades y relaciones.</p>
+      </div>
+
+      <div class="hint-box">
+        <strong>Atributos requeridos</strong>
+
+        <div class="required-entities-list">
+          @for (entity of levelConfigService.currentLevel().expectedEntities; track entity.name) {
+            <details [open]="entity.name === levelConfigService.currentLevel().expectedEntityName">
+              <summary>{{ entity.name }}</summary>
+
+              <ul class="required-list">
+                @for (attribute of entity.expectedAttributes; track attribute.name) {
+                  <li>
+                    <strong>{{ attribute.name }}</strong>
+                    — {{ attribute.type }}
+
+                    @if (attribute.isPrimaryKey) {
+                      <span>— PK</span>
+                    }
+
+                    <small>Puedes usar: {{ attribute.acceptedNames.join(', ') }}</small>
+                  </li>
+                }
+              </ul>
+            </details>
+          }
+        </div>
+      </div>
+    </aside>
+
+    <main class="canvas-area">
+      <div class="canvas-header">
+        <h2>Lienzo de modelado</h2>
+        <p>Selecciona una entidad para ver sus detalles.</p>
+      </div>
+
+      <div class="canvas-board">
+        @if (simulatorStateService.nodes().length === 0) {
+          <div class="empty-state">
+            <p>Aún no has agregado entidades.</p>
+            <small>Usa los botones de entidades del nivel para iniciar.</small>
+          </div>
+        }
+
+        @for (node of simulatorStateService.nodes(); track node.id) {
+          <button
+            type="button"
+            class="entity-node"
+            [class.selected]="node.selected"
+            (click)="selectNode(node.id)"
+          >
+            {{ node.name }}
+          </button>
+        }
+      </div>
+
+      @if (levelConfigService.currentLevel().expectedRelations?.length) {
+        <section class="relations-panel">
+          <div class="canvas-header">
+            <h2>Relaciones</h2>
+            <p>Crea relaciones simples entre entidades. Por ahora se muestran como lista para mantener la app estable.</p>
+          </div>
+
+          <form class="relation-form" (submit)="$event.preventDefault(); saveRelation()">
+            <label class="field">
+              <span>Origen</span>
+              <select
+                [ngModel]="relationFromEntityId()"
+                (ngModelChange)="onRelationFromChange($event)"
+                name="relationFromEntityId"
+              >
+                <option value="">Selecciona origen</option>
+                @for (node of simulatorStateService.nodes(); track node.id) {
+                  <option [value]="node.id">{{ node.name }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Relación</span>
+              <input
+                type="text"
+                [ngModel]="relationName()"
+                (ngModelChange)="onRelationNameChange($event)"
+                name="relationName"
+                placeholder="Ej. escribe"
+              />
+            </label>
+
+            <label class="field">
+              <span>Destino</span>
+              <select
+                [ngModel]="relationToEntityId()"
+                (ngModelChange)="onRelationToChange($event)"
+                name="relationToEntityId"
+              >
+                <option value="">Selecciona destino</option>
+                @for (node of simulatorStateService.nodes(); track node.id) {
+                  <option [value]="node.id">{{ node.name }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Cardinalidad</span>
+              <select
+                [ngModel]="relationCardinality()"
+                (ngModelChange)="onRelationCardinalityChange($event)"
+                name="relationCardinality"
+              >
+                <option value="1:1">1:1</option>
+                <option value="1:N">1:N</option>
+                <option value="N:M">N:M</option>
+              </select>
+            </label>
+
+            <button type="submit" class="save-btn">Guardar relación</button>
+          </form>
+
+          @if (relationError()) {
+            <div class="message-box error-message">{{ relationError() }}</div>
+          }
+
+          @if (relationSuccess()) {
+            <div class="message-box success-message">{{ relationSuccess() }}</div>
+          }
+
+          @if (simulatorStateService.relations().length === 0) {
+            <p class="helper-text">Aún no has creado relaciones.</p>
+          } @else {
+            <ul class="relations-list">
+              @for (relation of simulatorStateService.relations(); track relation.id) {
+                <li>
+                  <strong>{{ simulatorStateService.getEntityNameById(relation.fromEntityId) }}</strong>
+                  <span>{{ relation.name }}</span>
+                  <strong>{{ simulatorStateService.getEntityNameById(relation.toEntityId) }}</strong>
+                  <span class="pk-tag">{{ relation.cardinality }}</span>
+                  <button type="button" class="delete-attribute-btn" (click)="removeRelation(relation.id)">
+                    Eliminar
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      }
+    </main>
+
+    <aside class="right-panel">
+      <h2>Diccionario de Datos</h2>
+
+      @if (simulatorStateService.selectedNode(); as selectedNode) {
+        <div class="dictionary-card">
+          <p class="entity-name">Entidad seleccionada: <strong>{{ selectedNode.name }}</strong></p>
+
+          <form class="dictionary-form" (submit)="$event.preventDefault(); saveAttribute()">
+            <label class="field">
+              <span>Nombre del atributo</span>
+              <input
+                type="text"
+                [ngModel]="attributeName()"
+                (ngModelChange)="onAttributeNameChange($event)"
+                name="attributeName"
+                placeholder="Ej. id_libro, titulo, nombre"
+              />
+            </label>
+
+            <label class="field">
+              <span>Tipo de dato</span>
+              <select
+                [ngModel]="attributeType()"
+                (ngModelChange)="onAttributeTypeChange($event)"
+                name="attributeType"
+              >
+                <option value="INT">INT</option>
+                <option value="VARCHAR">VARCHAR</option>
+                <option value="DATE">DATE</option>
+                <option value="BOOLEAN">BOOLEAN</option>
+                <option value="FLOAT">FLOAT</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Longitud</span>
+              <input
+                type="number"
+                [ngModel]="attributeLength() ?? ''"
+                (ngModelChange)="onAttributeLengthChange($event)"
+                name="attributeLength"
+                placeholder="Ej. 150"
+              />
+              <small class="field-help">Solo es obligatoria cuando el tipo de dato es VARCHAR.</small>
+            </label>
+
+            <label class="field">
+              <span>Descripción</span>
+              <textarea
+                rows="3"
+                [ngModel]="attributeDescription()"
+                (ngModelChange)="onAttributeDescriptionChange($event)"
+                name="attributeDescription"
+                placeholder="Describe el atributo"
+              ></textarea>
+            </label>
+
+            <label class="checkbox-field">
+              <input
+                type="checkbox"
+                [ngModel]="attributeIsPrimaryKey()"
+                (ngModelChange)="onPrimaryKeyChange($event)"
+                name="attributeIsPrimaryKey"
+              />
+              <span>Llave primaria (PK)</span>
+            </label>
+
+            @if (formError()) {
+              <div class="message-box error-message">{{ formError() }}</div>
+            }
+
+            @if (formSuccess()) {
+              <div class="message-box success-message">{{ formSuccess() }}</div>
+            }
+
+            <button type="submit" class="save-btn">Guardar atributo</button>
+          </form>
+
+          <div class="attributes-section">
+            <h3>Atributos definidos</h3>
+
+            @if (selectedNode.attributes.length === 0) {
+              <p class="helper-text">Aún no has registrado atributos para esta entidad.</p>
+            } @else {
+              <ul class="attributes-list">
+                @for (attribute of selectedNode.attributes; track attribute.id) {
+                  <li class="attribute-item">
+                    <div class="attribute-info">
+                      <div>
+                        <strong>{{ attribute.name }}</strong>
+                        — {{ attribute.type }}
+
+                        @if (attribute.length) {
+                          <span>({{ attribute.length }})</span>
+                        }
+
+                        @if (attribute.isPrimaryKey) {
+                          <span class="pk-tag">PK</span>
+                        }
+                      </div>
+
+                      @if (attribute.description) {
+                        <small>{{ attribute.description }}</small>
+                      }
+                    </div>
+
+                    <button type="button" class="delete-attribute-btn" (click)="removeAttribute(attribute.id)">
+                      Eliminar
+                    </button>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="dictionary-empty">
+          <p>Selecciona una entidad para visualizar su información.</p>
+          <small>Primero crea una entidad y después haz clic sobre ella.</small>
+        </div>
+      }
+    </aside>
+  </section>
+</section>

@@ -1,0 +1,93 @@
+<section class="result-page">
+  <div class="result-card">
+    @if (validationService.lastResult(); as result) {
+      @if (result.isValid) {
+        <div class="result-avatar success-avatar">
+          <img src="/assets/avatars/avatar_bien_hecho.png" alt="Avatar de modelo correcto" />
+        </div>
+
+        <h1>Modelo válido</h1>
+
+        <p class="main-text">Tu modelo cumple con las reglas definidas para este nivel.</p>
+
+        <div class="score-box">
+          <span>Integridad final</span>
+          <strong>{{ result.integrityScore }}%</strong>
+        </div>
+      } @else {
+        <div class="result-avatar error-avatar">
+          <img src="/assets/avatars/avatar_error_modelo.png" alt="Avatar de modelo incorrecto" />
+        </div>
+
+        <h1>Modelo incompleto</h1>
+
+        <p class="main-text">Se detectaron errores que debes corregir antes de continuar.</p>
+
+        <div class="score-box">
+          <span>Integridad actual</span>
+          <strong>{{ result.integrityScore }}%</strong>
+        </div>
+
+        <div class="issues-box">
+          <h2>Errores encontrados</h2>
+
+          @if (entityIssues().length) {
+            <h3>Entidades</h3>
+            <ul>
+              @for (issue of entityIssues(); track issue.code) {
+                <li>{{ issue.message }}</li>
+              }
+            </ul>
+          }
+
+          @if (attributeIssues().length) {
+            <h3>Atributos</h3>
+            <ul>
+              @for (issue of attributeIssues(); track issue.code) {
+                <li>{{ issue.message }}</li>
+              }
+            </ul>
+          }
+
+          @if (relationIssues().length) {
+            <h3>Relaciones</h3>
+            <ul>
+              @for (issue of relationIssues(); track issue.code) {
+                <li>{{ issue.message }}</li>
+              }
+            </ul>
+          }
+
+          @if (generalIssues().length) {
+            <h3>General</h3>
+            <ul>
+              @for (issue of generalIssues(); track issue.code) {
+                <li>{{ issue.message }}</li>
+              }
+            </ul>
+          }
+        </div>
+      }
+
+      <div class="actions">
+        @if (!result.isValid) {
+          <button type="button" class="secondary-btn" (click)="goToModeling()">Corregir modelo</button>
+        }
+
+        <button type="button" class="secondary-btn" (click)="goToLevels()">Elegir otro nivel</button>
+        <button type="button" class="primary-btn" (click)="goToWelcome()">Volver al inicio</button>
+      </div>
+    } @else {
+      <div class="icon neutral-icon">i</div>
+
+      <h1>Sin resultado</h1>
+
+      <p class="main-text">Aún no has validado el modelo.</p>
+
+      <div class="actions">
+        <button type="button" class="secondary-btn" (click)="goToLevels()">Elegir nivel</button>
+        <button type="button" class="primary-btn" (click)="goToModeling()">Ir al modelado</button>
+      </div>
+    }
+  </div>
+</section>

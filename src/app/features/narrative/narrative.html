@@ -1,0 +1,76 @@
+<section class="narrative-page">
+  <div class="narrative-card">
+    <div class="npc-column">
+      <div class="npc-avatar">
+        <img
+          src="/assets/avatars/avatar_recibimiento.png"
+          alt="Avatar de bienvenida del simulador"
+        />
+      </div>
+    </div>
+
+    <div class="content-column">
+      <div class="level-badge">
+        {{ levelConfigService.currentLevel().title }}
+      </div>
+
+      <h1>{{ levelConfigService.currentLevel().subtitle }}</h1>
+
+      <p class="story-text">
+        {{ levelConfigService.currentLevel().narrativeText }}
+      </p>
+
+      <div class="objective-box">
+        <h2>Objetivo del nivel</h2>
+        <p>{{ levelConfigService.currentLevel().objective }}</p>
+      </div>
+
+      <div class="expected-box">
+        <h3>Entidades esperadas</h3>
+
+        <ul>
+          @for (entity of levelConfigService.currentLevel().expectedEntities; track entity.name) {
+            <li>
+              <strong>{{ entity.name }}</strong>
+              <small>
+                {{ entity.expectedAttributes.length }} atributo(s) requeridos.
+                Puedes nombrarla como: {{ entity.acceptedNames.join(', ') }}.
+              </small>
+            </li>
+          }
+        </ul>
+      </div>
+
+      @if (levelConfigService.currentLevel().expectedRelations?.length) {
+        <div class="expected-box">
+          <h3>Relaciones esperadas</h3>
+
+          <ul>
+            @for (relation of levelConfigService.currentLevel().expectedRelations; track relation.name) {
+              <li>
+                <strong>{{ relation.fromEntity }}</strong>
+                {{ relation.name }}
+                <strong>{{ relation.toEntity }}</strong>
+                <span class="pk-tag">{{ relation.cardinality }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <div class="actions">
+        <button type="button" class="secondary-btn" (click)="goBack()">
+          Volver
+        </button>
+
+        <button type="button" class="secondary-btn" (click)="goToHelp()">
+          Consultar manual
+        </button>
+
+        <button type="button" class="primary-btn" (click)="startLevel()">
+          Iniciar modelado
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

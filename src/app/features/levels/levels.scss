@@ -1,0 +1,157 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.levels-page {
+  min-height: 100vh;
+  padding: 28px;
+  background: linear-gradient(135deg, #eef4ff 0%, #f8fbff 55%, #ffffff 100%);
+}
+
+.levels-header {
+  max-width: 1180px;
+  margin: 0 auto 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.badge,
+.level-number {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  color: #214a9a;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  color: #162033;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+.levels-header p {
+  margin: 0;
+  max-width: 720px;
+  color: #4e5b70;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.levels-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.level-card {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dbe7ff;
+  border-radius: 24px;
+  padding: 26px;
+  background: #ffffff;
+  box-shadow: 0 16px 44px rgba(18, 52, 86, 0.08);
+}
+
+.level-card h2 {
+  margin: 0 0 10px;
+  color: #162033;
+  font-size: 26px;
+}
+
+.level-card h3 {
+  margin: 0 0 16px;
+  color: #24438a;
+  font-size: 18px;
+}
+
+.level-card p {
+  margin: 0;
+  color: #53617a;
+  line-height: 1.6;
+}
+
+.level-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.level-meta span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f3f7ff;
+  color: #31425f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.primary-btn {
+  margin-top: auto;
+  width: 100%;
+  background: #2457d6;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(36, 87, 214, 0.22);
+}
+
+.secondary-btn {
+  background: #eef3ff;
+  color: #24438a;
+  white-space: nowrap;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 980px) {
+  .levels-header {
+    flex-direction: column;
+  }
+
+  .levels-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .levels-page {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .levels-header p {
+    font-size: 16px;
+  }
+
+  .secondary-btn {
+    width: 100%;
+  }
+}
