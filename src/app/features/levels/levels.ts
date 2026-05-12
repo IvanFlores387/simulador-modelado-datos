@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LevelConfigModel } from '../../core/models/level-config.model';
 import { LevelConfigService } from '../../core/services/level-config.service';
@@ -13,7 +13,7 @@ import { AudioService } from '../../core/services/audio.service';
   templateUrl: './levels.html',
   styleUrl: './levels.scss',
 })
-export class Levels implements OnDestroy {
+export class Levels implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly levelConfigService = inject(LevelConfigService);
   private readonly simulatorStateService = inject(SimulatorStateService);
@@ -22,22 +22,20 @@ export class Levels implements OnDestroy {
 
   readonly levels = this.levelConfigService.getAllLevels();
 
-  isMusicPlaying = false;
+  ngOnInit(): void {
+    this.playBackgroundMusic();
+  }
 
-  toggleMusic(): void {
-    if (this.isMusicPlaying) {
-      this.audioService.stopLoop();
-      this.isMusicPlaying = false;
-      return;
-    }
+  private playBackgroundMusic(): void {
+    this.audioService.playLoop('/assets/audio/levels', 0.25);
+  }
 
-    this.audioService.playLoop('/assets/audio/levels.mp3', 0.25);
-    this.isMusicPlaying = true;
+  private stopBackgroundMusic(): void {
+    this.audioService.stopLoop();
   }
 
   startLevel(level: LevelConfigModel): void {
-    this.audioService.stopLoop();
-    this.isMusicPlaying = false;
+    this.stopBackgroundMusic();
 
     this.levelConfigService.setCurrentLevel(level.id);
     this.simulatorStateService.reset();
@@ -46,13 +44,11 @@ export class Levels implements OnDestroy {
   }
 
   goBack(): void {
-    this.audioService.stopLoop();
-    this.isMusicPlaying = false;
+    this.stopBackgroundMusic();
     this.router.navigate(['/bienvenida']);
   }
 
   ngOnDestroy(): void {
-    this.audioService.stopLoop();
-    this.isMusicPlaying = false;
+    this.stopBackgroundMusic();
   }
 }

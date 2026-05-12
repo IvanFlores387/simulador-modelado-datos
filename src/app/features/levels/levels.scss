@@ -18,14 +18,6 @@
   align-items: flex-start;
 }
 
-.header-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
 .badge,
 .level-number {
   display: inline-flex;
@@ -107,8 +99,7 @@ h1 {
 }
 
 .primary-btn,
-.secondary-btn,
-.music-btn {
+.secondary-btn {
   min-height: 48px;
   border: none;
   border-radius: 14px;
@@ -133,21 +124,9 @@ h1 {
   white-space: nowrap;
 }
 
-.music-btn {
-  background: #171923;
-  color: #ffffff;
-  white-space: nowrap;
-  box-shadow: 0 10px 24px rgba(23, 25, 35, 0.18);
-}
-
 .primary-btn:hover,
-.secondary-btn:hover,
-.music-btn:hover {
+.secondary-btn:hover {
   transform: translateY(-1px);
-}
-
-.music-btn:hover {
-  box-shadow: 0 14px 28px rgba(23, 25, 35, 0.22);
 }
 
 @media (max-width: 760px) {
@@ -155,14 +134,51 @@ h1 {
     flex-direction: column;
   }
 
-  .header-actions {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .music-btn,
   .secondary-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .levels-page {
+    padding: 18px;
+  }
+
+  .levels-header {
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .badge,
+  .level-number {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .levels-header p {
+    font-size: 16px;
+  }
+
+  .levels-grid {
+    gap: 16px;
+  }
+
+  .level-card {
+    min-height: auto;
+    border-radius: 20px;
+  }
+
+  .level-card h3 {
+    font-size: 16px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    font-size: 15px;
   }
 }
