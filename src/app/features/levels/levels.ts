@@ -27,7 +27,7 @@ export class Levels implements OnInit, OnDestroy {
   }
 
   private playBackgroundMusic(): void {
-    this.audioService.playLoop('/assets/audio/levels', 0.25);
+    this.audioService.playLoop('/assets/audio/levels.mp3', 0.25);
   }
 
   private stopBackgroundMusic(): void {
