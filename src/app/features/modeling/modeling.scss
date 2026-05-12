@@ -1,51 +1,55 @@
-/* =========================
-   ESTILOS GENERALES
-   ========================= */
+/* =========================================================
+   Área de modelado - responsive completo
+   ========================================================= */
 
 :host {
   display: block;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .modeling-page {
-  min-height: 100vh;
-  padding: 24px;
+  min-height: 100dvh;
+  padding: var(--app-page-padding);
   background: linear-gradient(135deg, #eef4ff 0%, #f8fbff 100%);
 }
 
 .topbar {
+  width: min(100%, 1440px);
+  margin: 0 auto 24px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  margin-bottom: 24px;
 }
 
 .level-label {
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 8px;
   padding: 8px 14px;
   border-radius: 999px;
   background: #e8f0ff;
   color: #214a9a;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
 }
 
 .topbar h1 {
   margin: 0;
-  font-size: 36px;
+  font-size: clamp(30px, 4vw, 36px);
   color: #162033;
+  line-height: 1.1;
 }
 
 .topbar-actions {
   display: flex;
+  justify-content: flex-end;
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .integrity-panel {
-  margin-bottom: 24px;
+  width: min(100%, 1440px);
+  margin: 0 auto 24px;
   background: #ffffff;
   border: 1px solid #dce6fb;
   border-radius: 20px;
@@ -55,6 +59,7 @@
 .integrity-header {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   margin-bottom: 10px;
   color: #31425f;
 }
@@ -75,18 +80,22 @@
 }
 
 .workspace {
+  width: min(100%, 1440px);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 260px 1fr 360px;
+  grid-template-columns: minmax(230px, 280px) minmax(0, 1fr) minmax(300px, 380px);
   gap: 20px;
+  align-items: start;
 }
 
 .left-panel,
 .canvas-area,
 .right-panel {
+  min-width: 0;
   background: #ffffff;
   border: 1px solid #dce6fb;
   border-radius: 24px;
-  padding: 20px;
+  padding: clamp(16px, 2.4vw, 20px);
   min-height: 520px;
 }
 
@@ -101,12 +110,15 @@
 .primary-btn,
 .secondary-btn,
 .save-btn,
-.danger-btn {
+.danger-btn,
+.mini-entity-btn,
+.delete-attribute-btn {
+  min-height: 44px;
   border: none;
   border-radius: 14px;
-  padding: 14px 18px;
+  padding: 12px 18px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition:
     transform 0.15s ease,
@@ -119,7 +131,8 @@
 .secondary-btn:hover,
 .save-btn:hover,
 .danger-btn:hover,
-.delete-attribute-btn:hover {
+.delete-attribute-btn:hover,
+.mini-entity-btn:hover {
   transform: translateY(-1px);
 }
 
@@ -143,37 +156,36 @@
   color: #24438a;
 }
 
-.danger-btn {
+.danger-btn,
+.delete-attribute-btn {
   background: #fdecec;
   color: #a52d2d;
   border: 1px solid #f5c7c7;
 }
 
-button:disabled {
+button:disabled,
+button:disabled:hover {
   opacity: 0.45;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
-button:disabled:hover {
-  transform: none;
-}
-
-/* =========================
-   PANELES DE AYUDA
-   ========================= */
-
 .hint-box,
 .dictionary-card,
-.dictionary-empty {
+.dictionary-empty,
+.entity-tools,
+.custom-entity-form,
+.relations-panel {
   border: 1px solid #dbe7ff;
   border-radius: 18px;
   padding: 16px;
   background: #fbfdff;
 }
 
-.hint-box {
+.hint-box,
+.entity-tools,
+.custom-entity-form {
   margin-bottom: 16px;
 }
 
@@ -184,9 +196,34 @@ button:disabled:hover {
   line-height: 1.6;
 }
 
-/* =========================
-   CAMBIO: AVATAR GUÍA EN MODELADO
-   ========================= */
+.entity-tools strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #273753;
+}
+
+.mini-entity-btn {
+  width: 100%;
+  margin-top: 8px;
+  border: 1px solid #cad9fa;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #eef3ff;
+  color: #24438a;
+}
+
+.custom-entity-form,
+.dictionary-form,
+.required-entities-list {
+  display: grid;
+  gap: 12px;
+}
+
+.required-entities-list summary {
+  cursor: pointer;
+  color: #24438a;
+  font-weight: 800;
+}
 
 .avatar-helper-card {
   border: 1px solid #dbe7ff;
@@ -199,8 +236,7 @@ button:disabled:hover {
 }
 
 .avatar-helper-card img {
-  width: 220px;
-  max-width: 100%;
+  width: clamp(130px, 60%, 220px);
   height: auto;
   display: block;
   object-fit: contain;
@@ -215,8 +251,6 @@ button:disabled:hover {
   font-size: 14px;
 }
 
-/* FIN CAMBIO */
-
 .required-list {
   margin: 12px 0 0;
   padding-left: 18px;
@@ -224,12 +258,10 @@ button:disabled:hover {
   line-height: 1.7;
 }
 
-/* CAMBIO: se mejora la separación porque ahora cada atributo muestra nombres equivalentes */
 .required-list li {
   margin-bottom: 12px;
 }
 
-/* CAMBIO: estilo para mostrar “Puedes usar: id, id_libro...” */
 .required-list small {
   display: block;
   margin-top: 4px;
@@ -238,12 +270,6 @@ button:disabled:hover {
   line-height: 1.4;
 }
 
-/* FIN CAMBIO */
-
-/* =========================
-   LIENZO
-   ========================= */
-
 .canvas-header {
   margin-bottom: 16px;
 }
@@ -251,23 +277,29 @@ button:disabled:hover {
 .canvas-header p {
   margin: 6px 0 0;
   color: #596781;
+  line-height: 1.5;
 }
 
 .canvas-board {
   position: relative;
-  min-height: 400px;
+  min-height: clamp(320px, 45vh, 520px);
   border-radius: 20px;
   border: 1px dashed #bdd0f8;
   background:
     linear-gradient(to right, rgba(189, 208, 248, 0.25) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(189, 208, 248, 0.25) 1px, transparent 1px);
   background-size: 24px 24px;
-  padding: 24px;
+  padding: clamp(14px, 2.5vw, 24px);
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 14px;
+  overflow-x: auto;
 }
 
 .empty-state {
-  height: 100%;
-  min-height: 350px;
+  width: 100%;
+  min-height: 280px;
   display: grid;
   place-items: center;
   color: #73809a;
@@ -276,7 +308,7 @@ button:disabled:hover {
 
 .empty-state p {
   margin: 0 0 6px;
-  font-weight: 600;
+  font-weight: 700;
   color: #4f5f79;
 }
 
@@ -288,14 +320,16 @@ button:disabled:hover {
 }
 
 .entity-node {
-  min-width: 180px;
+  flex: 1 1 180px;
+  max-width: 260px;
+  min-width: min(100%, 180px);
   padding: 18px 20px;
   border-radius: 18px;
   border: 2px solid #8fb0f4;
   background: #edf4ff;
   color: #1e3e83;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(70, 110, 206, 0.12);
 }
@@ -306,19 +340,10 @@ button:disabled:hover {
   box-shadow: 0 12px 24px rgba(36, 87, 214, 0.18);
 }
 
-/* =========================
-   DICCIONARIO DE DATOS
-   ========================= */
-
 .entity-name {
   margin-top: 0;
   margin-bottom: 16px;
   color: #20304c;
-}
-
-.dictionary-form {
-  display: grid;
-  gap: 14px;
 }
 
 .field {
@@ -330,10 +355,9 @@ button:disabled:hover {
 .checkbox-field span,
 .attributes-section h3 {
   color: #273753;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* CAMBIO: ayuda debajo del input de longitud */
 .field-help {
   display: block;
   margin-top: -2px;
@@ -342,8 +366,6 @@ button:disabled:hover {
   line-height: 1.4;
 }
 
-/* FIN CAMBIO */
-
 input,
 select,
 textarea {
@@ -351,10 +373,14 @@ textarea {
   border: 1px solid #cad9fa;
   border-radius: 12px;
   padding: 12px 14px;
-  font-size: 14px;
   color: #22324d;
   background: #ffffff;
   outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 92px;
 }
 
 input:focus,
@@ -372,13 +398,15 @@ textarea:focus {
 
 .checkbox-field input {
   width: auto;
+  min-width: 18px;
+  min-height: 18px;
 }
 
 .message-box {
   border-radius: 12px;
   padding: 12px 14px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .error-message {
@@ -393,17 +421,14 @@ textarea:focus {
   border: 1px solid #bfe8cf;
 }
 
-/* =========================
-   ATRIBUTOS DEFINIDOS
-   ========================= */
-
 .attributes-section {
   margin-top: 22px;
   padding-top: 18px;
   border-top: 1px solid #e4ecfd;
 }
 
-.attributes-list {
+.attributes-list,
+.relations-list {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -411,7 +436,8 @@ textarea:focus {
   gap: 12px;
 }
 
-.attribute-item {
+.attribute-item,
+.relations-list li {
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -426,6 +452,7 @@ textarea:focus {
 
 .attribute-info {
   flex: 1;
+  min-width: 0;
 }
 
 .attribute-info small {
@@ -435,129 +462,20 @@ textarea:focus {
 }
 
 .delete-attribute-btn {
-  border: none;
   border-radius: 10px;
   padding: 8px 10px;
-  background: #fdecec;
-  color: #a52d2d;
   font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    opacity 0.15s ease;
 }
 
 .pk-tag {
-  display: inline-block;
+  display: inline-flex;
   margin-left: 8px;
   padding: 2px 8px;
   border-radius: 999px;
   background: #dff3e8;
   color: #1f7a46;
   font-size: 12px;
-  font-weight: 700;
-}
-
-/* =========================
-   RESPONSIVE
-   ========================= */
-
-@media (max-width: 1100px) {
-  .workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .left-panel,
-  .canvas-area,
-  .right-panel {
-    min-height: auto;
-  }
-}
-
-@media (max-width: 700px) {
-  .modeling-page {
-    padding: 16px;
-  }
-
-  .topbar {
-    flex-direction: column;
-  }
-
-  .topbar h1 {
-    font-size: 30px;
-  }
-
-  .topbar-actions {
-    width: 100%;
-  }
-
-  .topbar-actions button {
-    flex: 1 1 100%;
-  }
-
-  .avatar-helper-card img {
-    width: 130px;
-  }
-
-  .attribute-item {
-    flex-direction: column;
-  }
-
-  .delete-attribute-btn {
-    width: 100%;
-  }
-}
-
-.entity-tools,
-.custom-entity-form,
-.relations-panel {
-  border: 1px solid #dbe7ff;
-  border-radius: 18px;
-  padding: 16px;
-  background: #fbfdff;
-  margin-bottom: 16px;
-}
-
-.entity-tools strong {
-  display: block;
-  margin-bottom: 10px;
-  color: #273753;
-}
-
-.mini-entity-btn {
-  width: 100%;
-  margin-top: 8px;
-  border: 1px solid #cad9fa;
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: #eef3ff;
-  color: #24438a;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.custom-entity-form {
-  display: grid;
-  gap: 12px;
-}
-
-.required-entities-list {
-  display: grid;
-  gap: 10px;
-}
-
-.required-entities-list summary {
-  cursor: pointer;
-  color: #24438a;
   font-weight: 800;
-}
-
-.canvas-board {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 14px;
 }
 
 .relations-panel {
@@ -573,27 +491,109 @@ textarea:focus {
 }
 
 .relations-list {
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 10px;
+  margin-top: 14px;
 }
 
 .relations-list li {
-  display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
-  border: 1px solid #e4ecfd;
-  border-radius: 14px;
-  padding: 12px;
-  background: #ffffff;
-  color: #41516c;
+}
+
+@media (max-width: 1250px) {
+  .workspace {
+    grid-template-columns: minmax(230px, 300px) minmax(0, 1fr);
+    grid-template-areas:
+      'left canvas'
+      'right right';
+  }
+
+  .left-panel {
+    grid-area: left;
+  }
+
+  .canvas-area {
+    grid-area: canvas;
+  }
+
+  .right-panel {
+    grid-area: right;
+    min-height: auto;
+  }
 }
 
 @media (max-width: 900px) {
+  .topbar {
+    flex-direction: column;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .topbar-actions button {
+    flex: 1 1 180px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'left'
+      'canvas'
+      'right';
+  }
+
+  .left-panel,
+  .canvas-area,
+  .right-panel {
+    min-height: auto;
+  }
+
+  .relation-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .relation-form .save-btn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar-actions {
+    flex-direction: column;
+  }
+
+  .topbar-actions button,
+  .full-btn,
+  .save-btn,
+  .mini-entity-btn {
+    width: 100%;
+  }
+
+  .integrity-header {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .canvas-board {
+    min-height: 300px;
+  }
+
+  .entity-node {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
   .relation-form {
     grid-template-columns: 1fr;
+  }
+
+  .attribute-item,
+  .relations-list li {
+    flex-direction: column;
+  }
+
+  .delete-attribute-btn {
+    width: 100%;
   }
 }

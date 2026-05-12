@@ -1,32 +1,27 @@
 :host {
   display: block;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .result-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: var(--app-page-padding);
   background: linear-gradient(135deg, #eef4ff 0%, #f8fbff 100%);
 }
 
 .result-card {
-  width: 100%;
-  max-width: 760px;
+  width: min(100%, 760px);
   background: #ffffff;
   border: 1px solid #dce6fb;
   border-radius: 24px;
-  padding: 40px;
+  padding: clamp(24px, 5vw, 40px);
   box-shadow: 0 16px 48px rgba(18, 52, 86, 0.08);
 }
 
-/* =========================
-   CAMBIO: AVATAR RESULTADO
-   ========================= */
-
 .result-avatar {
-  width: 190px;
+  width: clamp(145px, 24vw, 190px);
   max-width: 100%;
   margin: 0 auto 22px;
   display: grid;
@@ -42,14 +37,12 @@
 }
 
 .success-avatar img {
-  width: 210px;
+  width: min(100%, 210px);
 }
 
 .error-avatar img {
-  width: 190px;
+  width: min(100%, 190px);
 }
-
-/* FIN CAMBIO */
 
 .icon {
   width: 72px;
@@ -59,7 +52,7 @@
   place-items: center;
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
 }
 
 .success-icon {
@@ -79,14 +72,14 @@
 
 h1 {
   margin: 0 0 14px;
-  font-size: 40px;
+  font-size: clamp(30px, 5vw, 40px);
   color: #162033;
   text-align: center;
 }
 
 .main-text {
   margin: 0 0 24px;
-  font-size: 18px;
+  font-size: clamp(16px, 2.4vw, 18px);
   line-height: 1.6;
   color: #53617a;
   text-align: center;
@@ -105,16 +98,23 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .score-box strong {
-  font-size: 28px;
+  font-size: clamp(24px, 4vw, 28px);
   color: #2457d6;
 }
 
 .issues-box h2 {
   margin-top: 0;
   color: #24324d;
+}
+
+.issues-box h3 {
+  margin: 18px 0 8px;
+  color: #24438a;
+  font-size: 18px;
 }
 
 .issues-box ul {
@@ -133,11 +133,12 @@ h1 {
 
 .primary-btn,
 .secondary-btn {
+  min-height: 48px;
   border: none;
   border-radius: 14px;
   padding: 14px 22px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -153,40 +154,20 @@ h1 {
 }
 
 @media (max-width: 640px) {
-  .result-card {
-    padding: 28px;
-  }
-
-  .result-avatar {
-    width: 150px;
-  }
-
-  .success-avatar img,
-  .error-avatar img {
-    width: 150px;
-  }
-
-  h1 {
-    font-size: 32px;
-  }
-
-  .main-text {
-    font-size: 16px;
+  .result-page {
+    place-items: stretch;
   }
 
   .score-box {
     flex-direction: column;
-    gap: 8px;
     text-align: center;
+  }
+
+  .actions {
+    flex-direction: column;
   }
 
   .actions button {
     width: 100%;
   }
-}
-
-.issues-box h3 {
-  margin: 18px 0 8px;
-  color: #24438a;
-  font-size: 18px;
 }

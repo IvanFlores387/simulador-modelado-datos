@@ -1,165 +1,154 @@
 :host {
   display: block;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .help-page {
-  min-height: 100vh;
-  padding: 24px;
+  min-height: 100dvh;
+  padding: var(--app-page-padding);
   background: linear-gradient(135deg, #eef4ff 0%, #f8fbff 100%);
 }
 
 .help-container {
-  width: 100%;
-  max-width: 1200px;
+  width: min(100%, 1200px);
   margin: 0 auto;
   background: #ffffff;
   border: 1px solid #dce6fb;
   border-radius: 24px;
-  padding: 32px;
+  padding: clamp(18px, 4vw, 32px);
   box-shadow: 0 16px 48px rgba(18, 52, 86, 0.08);
 }
-
-/* =========================
-   ENCABEZADO
-   ========================= */
 
 .help-header {
   margin-bottom: 28px;
 }
 
 .help-badge {
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 14px;
   padding: 8px 14px;
   border-radius: 999px;
   background: #e8f0ff;
   color: #214a9a;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
 }
 
 .help-header h1 {
   margin: 0 0 14px;
-  font-size: 40px;
+  font-size: clamp(28px, 5vw, 40px);
   line-height: 1.15;
   color: #162033;
 }
 
 .help-header p {
   margin: 0;
-  font-size: 18px;
+  font-size: clamp(16px, 2.3vw, 18px);
   line-height: 1.7;
   color: #526179;
 }
 
-/* =========================
-   SECCIONES GENERALES
-   ========================= */
-
-.help-section,
-.final-tip,
-.info-card {
-  border: 1px solid #dbe7ff;
-  border-radius: 20px;
-  padding: 22px;
-  background: #fbfdff;
-}
-
-.help-section {
-  margin-bottom: 18px;
-}
-
-.help-section h2,
-.final-tip h2,
-.info-card h3 {
-  margin: 0 0 14px;
-  color: #1d2b46;
-  font-size: 28px;
-}
-
-.help-section h3,
-.help-section h4 {
-  margin: 20px 0 10px;
-  color: #22324d;
-}
-
-.help-section p,
-.help-section li,
-.final-tip p,
-.info-card p {
-  color: #51607a;
-  line-height: 1.7;
-  font-size: 16px;
-}
-
-.help-section strong,
-.final-tip strong,
-.info-card strong {
-  color: #1d2b46;
-}
-
-/* =========================
-   GRID DE TARJETAS
-   ========================= */
-
-.info-grid {
+.help-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   margin-bottom: 18px;
 }
 
-.info-card {
-  height: 100%;
+.help-card,
+.final-tip {
+  border: 1px solid #dbe7ff;
+  border-radius: 20px;
+  padding: clamp(18px, 3vw, 22px);
+  background: #fbfdff;
+  margin-bottom: 18px;
 }
 
-.info-card h3 {
-  font-size: 22px;
+.help-grid .help-card {
+  margin-bottom: 0;
 }
 
-/* =========================
-   LISTAS
-   ========================= */
+.help-card h2,
+.final-tip h2 {
+  margin: 0 0 14px;
+  color: #1d2b46;
+  font-size: clamp(22px, 3vw, 28px);
+}
 
-.help-section ul,
-.help-section ol {
+.help-card h3 {
+  margin: 0 0 10px;
+  color: #22324d;
+  font-size: 20px;
+}
+
+.help-card p,
+.help-card li,
+.final-tip p,
+.concept-item p {
+  color: #51607a;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.help-card p,
+.final-tip p {
+  margin-top: 0;
+}
+
+.help-card strong,
+.final-tip strong {
+  color: #1d2b46;
+}
+
+.steps-list,
+.warning-list {
   margin: 0;
   padding-left: 22px;
 }
 
-.help-section li + li {
-  margin-top: 8px;
-}
-
-.steps-list li {
+.steps-list li,
+.warning-list li {
   margin-bottom: 8px;
 }
 
-/* =========================
-   TABLA
-   ========================= */
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+}
 
-.accepted-table-wrapper {
+.concept-item {
+  border: 1px solid #e4ecfd;
+  border-radius: 16px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.concept-item p {
+  margin: 0;
+}
+
+.table-wrapper {
   width: 100%;
   overflow-x: auto;
   border: 1px solid #dbe7ff;
   border-radius: 18px;
   background: #ffffff;
+  -webkit-overflow-scrolling: touch;
 }
 
-.accepted-table {
+table {
   width: 100%;
   min-width: 720px;
   border-collapse: collapse;
 }
 
-.accepted-table thead {
+thead {
   background: #eef4ff;
 }
 
-.accepted-table th,
-.accepted-table td {
+th,
+td {
   padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid #e4ecfd;
@@ -167,65 +156,32 @@
   vertical-align: top;
 }
 
-.accepted-table th {
+th {
   color: #20304c;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
-.accepted-table td {
+td {
   font-size: 14px;
   line-height: 1.6;
 }
 
-.accepted-table tbody tr:hover {
-  background: #f8fbff;
-}
-
-/* =========================
-   BLOQUES DESTACADOS
-   ========================= */
-
-.manual-note {
-  margin-top: 16px;
-  border-left: 4px solid #2457d6;
-  border-radius: 12px;
-  padding: 14px 16px;
-  background: #eef4ff;
-  color: #38507d;
-  line-height: 1.6;
-}
-
-.tip-box {
-  margin-top: 16px;
-  border: 1px solid #cfe1ff;
-  border-radius: 16px;
-  padding: 16px;
-  background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
-}
-
-.tip-box p {
-  margin: 0;
-  color: #4f5f79;
-  line-height: 1.6;
+code {
+  display: inline-block;
+  margin: 2px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #24438a;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .final-tip {
   margin-top: 18px;
   background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
 }
-
-.final-tip h2 {
-  font-size: 24px;
-}
-
-.final-tip p {
-  margin: 0;
-}
-
-/* =========================
-   BOTONES
-   ========================= */
 
 .help-actions {
   display: flex;
@@ -236,11 +192,12 @@
 
 .primary-btn,
 .secondary-btn {
+  min-height: 48px;
   border: none;
   border-radius: 14px;
   padding: 14px 22px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition:
     transform 0.15s ease,
@@ -264,74 +221,45 @@
   color: #24438a;
 }
 
-/* =========================
-   ETIQUETAS VISUALES
-   ========================= */
-
-.tag {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
+/* Compatibilidad por si alguna versión anterior del HTML usa estas clases */
+.help-section,
+.info-card {
+  border: 1px solid #dbe7ff;
+  border-radius: 20px;
+  padding: clamp(18px, 3vw, 22px);
+  background: #fbfdff;
+  margin-bottom: 18px;
 }
 
-.tag-primary {
-  background: #e8f0ff;
-  color: #2457d6;
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
-.tag-success {
-  background: #dff3e8;
-  color: #1f7a46;
+.accepted-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #dbe7ff;
+  border-radius: 18px;
+  background: #ffffff;
 }
 
-.tag-danger {
-  background: #fdecec;
-  color: #a52d2d;
+.accepted-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
 }
-
-/* =========================
-   RESPONSIVE
-   ========================= */
 
 @media (max-width: 900px) {
-  .help-container {
-    padding: 24px;
-  }
-
-  .help-header h1 {
-    font-size: 32px;
-  }
-
-  .help-header p {
-    font-size: 16px;
-  }
-
-  .help-section h2,
-  .final-tip h2 {
-    font-size: 24px;
-  }
-
+  .help-grid,
   .info-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .help-page {
-    padding: 16px;
-  }
-
-  .help-container {
-    padding: 18px;
-    border-radius: 18px;
-  }
-
-  .help-header h1 {
-    font-size: 28px;
-  }
-
   .help-actions {
     flex-direction: column;
   }
@@ -341,9 +269,8 @@
     width: 100%;
   }
 
-  .help-section,
-  .final-tip,
-  .info-card {
-    padding: 18px;
+  table,
+  .accepted-table {
+    min-width: 640px;
   }
 }
